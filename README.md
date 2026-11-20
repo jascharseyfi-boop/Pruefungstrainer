@@ -1,9 +1,15 @@
-# Prüfungstrainer – Startpaket für Claude Code
+# Elearning – Prüfungstrainer Fachkunde Güterkraftverkehr
 
-Inhalt:
-- CLAUDE.md – Anforderungen (Claude Code liest diese Datei automatisch)
-- data/questions.json – alle 310 Fragen
-- referenz/lernkarten-prototyp.html – bisheriger Prototyp als Vorlage
+Statische PWA (Vite + Preact + TypeScript). Anforderungen: `CLAUDE.md`.
 
-Start: Ordner entpacken, in Claude Code öffnen und z. B. schreiben:
-"Lies CLAUDE.md und data/questions.json. Mach mir zuerst einen Plan, dann bauen wir die App Schritt für Schritt."
+- `data/questions.json` – 310 Fragen
+- `referenz/lernkarten-prototyp.html` – früherer Prototyp (Stilvorlage)
+
+## Befehle
+```
+npm install
+npm run dev        # Entwicklungsserver
+npm run build      # erzeugt dist/ (für Netlify Drop)
+npm test           # Tests
+npm run validate   # prüft questions.json
+```

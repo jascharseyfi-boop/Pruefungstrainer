@@ -1,0 +1,32 @@
+{
+  "_hinweis": "Vorschlag zur Themen-Umsortierung. Wird erst mit 'npm run apply-remap' auf data/questions.json angewendet.",
+  "renameTopics": {
+    "Finanzierung": "Finanzierung & Kalkulation"
+  },
+  "moves": [
+    { "ids": ["S036", "S037", "S038"], "to": "Rechnungswesen & Bilanz", "grund": "Abschreibung/AfA (wie S128–S132)" },
+    { "ids": ["S044", "S045"], "to": "Rechnungswesen & Bilanz", "grund": "Gewinn- und Verlustrechnung" },
+    { "ids": ["S081", "S082"], "to": "Finanzierung & Kalkulation", "grund": "Transportkalkulation, nicht Fahrzeug/Verkehr" },
+    { "ids": ["S083", "S084", "S085", "S086", "S087", "S088"], "to": "Marketing", "grund": "Marketing-Mix, standen unter Fahrzeug/Verkehr" },
+    { "ids": ["S106", "S107"], "to": "Transportrecht & Haftung", "grund": "Personenschaden, Gefährdungshaftung Kfz" },
+    { "ids": ["S114", "S115", "S116"], "to": "Finanzierung & Kalkulation", "grund": "Kauf vs. Leasing (wie S136–S138)" },
+    { "ids": ["S119", "S120", "S121", "S122"], "to": "Marketing", "grund": "Marktprognose, Kundenbindung – standen unter Mahnwesen" },
+    { "ids": ["S139", "S140"], "to": "Zahlungsverkehr & Mahnwesen", "grund": "Orderscheck (wie S073–S075)" },
+    { "ids": ["M004", "M005", "M006", "M007"], "to": "Rechnungswesen & Bilanz", "grund": "Bilanzaufbau, Eigenkapital, Aktiva/Passiva" },
+    { "ids": ["M018", "M019"], "to": "Arbeitsrecht", "grund": "Jugendarbeitsschutzgesetz (wie Mutterschutz S197)" },
+    { "ids": ["M051"], "to": "Fahrzeug, Ladung & Verkehr", "grund": "Mitzuführende Ausrüstung – einzige Frage unter „Sonstiges“" },
+    { "ids": ["M062"], "to": "Rechtsformen & Handelsrecht", "grund": "Gewerbezentralregister (Register wie Handelsregister)" },
+    { "ids": ["M063"], "to": "Lenk- und Arbeitszeiten", "grund": "Aufbewahrung Tachographenschaublätter" },
+    { "ids": ["M065"], "to": "Rechnungswesen & Bilanz", "grund": "Abschreibung in der GuV" },
+    { "ids": ["M066", "M067", "M068"], "to": "Finanzierung & Kalkulation", "grund": "Gebundenes Kapital, Kreditsicherheiten" },
+    { "ids": ["M069", "M070"], "to": "Transportrecht & Haftung", "grund": "Reine Quittung, Pflichtversicherungen" },
+    { "ids": ["M071", "M092"], "to": "Marketing", "grund": "Informationsbeschaffung, Konkurrenzanalyse" },
+    { "ids": ["M076", "M077", "M078", "M079", "M080"], "to": "Fahrzeug, Ladung & Verkehr", "grund": "Maße, Gewichte, Ladung, Ankuppeln – nicht Lenkzeit" },
+    { "ids": ["M083"], "to": "Rechtsformen & Handelsrecht", "grund": "Firmierung" },
+    { "ids": ["M084", "M085", "M086"], "to": "Steuern", "grund": "Unternehmersteuern, Gewerbesteuer" },
+    { "ids": ["M095", "M096"], "to": "Finanzierung & Kalkulation", "grund": "Rückfrachtkalkulation, finanzielle Leistungsfähigkeit" },
+    { "ids": ["M097"], "to": "Zahlungsverkehr & Mahnwesen", "grund": "Bargeldlose Zahlungsarten" },
+    { "ids": ["M098"], "to": "Rechnungswesen & Bilanz", "grund": "Kleinbetragsrechnung (wie S141–S143)" },
+    { "ids": ["M112"], "to": "Transportrecht & Haftung", "grund": "Pfandrecht des Frachtführers (HGB)" }
+  ]
+}
