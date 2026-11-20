@@ -6,6 +6,7 @@ import { Quiz } from './screens/Quiz';
 import { Simulation } from './screens/Simulation';
 import { Stats } from './screens/Stats';
 import { Training } from './screens/Training';
+import { Transfer } from './screens/Transfer';
 import { Placeholder } from './screens/Placeholder';
 
 const TITLES = {
@@ -22,7 +23,7 @@ export function App() {
   const showTabs = route === 'start' || route === 'statistik' || route === 'sichern';
   return (
     <div class={`shell${showTabs ? ' has-tabs' : ''}`}>
-      {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : route === 'quiz' ? <Quiz /> : route === 'simulation' ? <Simulation /> : route === 'training' ? <Training /> : route === 'statistik' ? <Stats /> : <Placeholder title={TITLES[route]} />}
+      {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : route === 'quiz' ? <Quiz /> : route === 'simulation' ? <Simulation /> : route === 'training' ? <Training /> : route === 'statistik' ? <Stats /> : route === 'sichern' ? <Transfer /> : <Placeholder title={TITLES[route]} />}
       {showTabs && <TabBar active={route} />}
     </div>
   );
