@@ -1,4 +1,5 @@
 import { TabBar } from './components/TabBar';
+import { UpdateBanner } from './components/UpdateBanner';
 import { useRoute } from './router';
 import { Flashcards } from './screens/Flashcards';
 import { Home } from './screens/Home';
@@ -24,6 +25,7 @@ export function App() {
   return (
     <div class={`shell${showTabs ? ' has-tabs' : ''}`}>
       {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : route === 'quiz' ? <Quiz /> : route === 'simulation' ? <Simulation /> : route === 'training' ? <Training /> : route === 'statistik' ? <Stats /> : route === 'sichern' ? <Transfer /> : <Placeholder title={TITLES[route]} />}
+      <UpdateBanner />
       {showTabs && <TabBar active={route} />}
     </div>
   );

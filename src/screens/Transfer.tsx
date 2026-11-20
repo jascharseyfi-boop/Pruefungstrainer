@@ -179,7 +179,7 @@ export function Transfer() {
           </>
         )}
       </section>
-      <p class="muted small center">Kein Konto, kein Server: Es werden keine Daten übertragen, außer du kopierst den Code selbst.</p>
+      <p class="muted small center">Kein Konto, kein Server: Es werden keine Daten übertragen, außer du kopierst den Code selbst.<br />App-Stand: {__BUILD_DATE__}</p>
     </div>
   );
 }

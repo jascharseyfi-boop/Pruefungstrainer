@@ -457,3 +457,12 @@ b, strong { font-weight: 700; }
 .warn { background: color-mix(in srgb, var(--again) 12%, var(--surface)); border-left: 4px solid var(--again); border-radius: 8px; padding: 10px 12px; }
 .preview { display: flex; flex-direction: column; gap: 10px; border-top: 3px solid var(--accent); padding-top: 12px; }
 .danger { color: var(--again); }
+
+/* ===== Update-Hinweis ===== */
+.update {
+  position: fixed; z-index: 20; left: 50%; transform: translateX(-50%);
+  top: calc(10px + var(--safe-top)); width: min(560px, calc(100% - 24px));
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--accent);
+  border-radius: 12px; padding: 10px 12px 10px 14px; box-shadow: 0 6px 24px rgb(0 0 0 / 0.18); font-weight: 600;
+}
