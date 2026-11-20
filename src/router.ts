@@ -21,6 +21,8 @@ export function useRoute(): Route {
       window.scrollTo(0, 0);
     };
     window.addEventListener('hashchange', on);
+    // Falls sich die Adresse geändert hat, bevor der Listener stand
+    setRoute(parse());
     return () => window.removeEventListener('hashchange', on);
   }, []);
   return route;

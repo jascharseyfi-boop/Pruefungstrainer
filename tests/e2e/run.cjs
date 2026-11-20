@@ -190,6 +190,42 @@ async function fresh(browser, state, opts = {}) {
     await ctx.close();
   });
 
+  await test('Netlify-Feld „Powered by Netlify“ verdeckt keine Buttons (und gibt Platz wieder frei)', async () => {
+    // Nachbau des von Netlify eingefügten Feldes (gleiche Maße/Position wie live gemessen)
+    const fake = () => {
+      const f = document.createElement('iframe');
+      f.id = 'nl-badge-frame';
+      f.setAttribute('style', 'position: fixed; bottom: 0px; right: 0px; border: 0px; margin: 0px; padding: 0px; background: #123; z-index: 2147483645; width: 201px; height: 64px; clip-path: path("M 3 3 H 188 V 51 H 3 Z");');
+      document.body.appendChild(f);
+    };
+    const overlaps = () => page.evaluate(() => {
+      const f = document.getElementById('nl-badge-frame');
+      const b = f ? f.getBoundingClientRect() : null;
+      const hits = [];
+      for (const el of document.querySelectorAll('.tabbar button, .dock button')) {
+        const r = el.getBoundingClientRect();
+        if (b && r.width && !(r.right <= b.left || r.left >= b.right || r.bottom <= b.top || r.top >= b.bottom)) hits.push(el.textContent.trim());
+      }
+      return hits;
+    });
+    const space = () => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--badge-space').trim());
+    const { ctx, page, errors } = await fresh(browser, baseState());
+    for (const [route, ready] of [['', '.tabbar'], ['statistik', '.tabbar'], ['karten', '.dock'], ['quiz', '.qtext'], ['simulation', '.dock']]) {
+      await page.goto(URL + '#/' + route);
+      await page.reload();
+      await page.locator(ready).waitFor();
+      await page.evaluate(fake);
+      await page.waitForFunction(() => getComputedStyle(document.documentElement).getPropertyValue('--badge-space').trim() === '72px');
+      const hits = await overlaps();
+      assert(hits.length === 0, `#/${route}: verdeckt ${hits.join(', ')}`);
+    }
+    await page.evaluate(() => document.getElementById('nl-badge-frame').remove());
+    await page.waitForFunction(() => getComputedStyle(document.documentElement).getPropertyValue('--badge-space').trim() === '0px');
+    assert((await space()) === '0px', 'Platz nach Entfernen nicht freigegeben');
+    assert(errors.length === 0, 'JS-Fehler');
+    await ctx.close();
+  });
+
   await browser.close();
   server.kill();
   const failed = results.filter((r) => !r[0]).length;

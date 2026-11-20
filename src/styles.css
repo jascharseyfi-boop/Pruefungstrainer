@@ -25,6 +25,9 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
+  /* Platz für das Netlify-Feld unten rechts (per Skript gesetzt, sonst 0) */
+  --badge-space: 0px;
+  --bottom-space: max(var(--safe-bottom), var(--badge-space));
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
@@ -68,7 +71,7 @@ b, strong { font-weight: 700; }
   min-height: 100dvh;
   padding: calc(16px + var(--safe-top)) calc(16px + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(16px + var(--safe-left));
 }
-.shell.has-tabs { padding-bottom: calc(96px + var(--safe-bottom)); }
+.shell.has-tabs { padding-bottom: calc(96px + var(--bottom-space)); }
 .screen { display: flex; flex-direction: column; gap: 16px; }
 .muted { color: var(--muted); }
 .h2 { font: 700 22px/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.03em; margin: 0; }
@@ -192,7 +195,7 @@ b, strong { font-weight: 700; }
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
   background: var(--surface);
   border-top: 1px solid var(--line);
-  padding: 6px calc(8px + var(--safe-right)) calc(6px + var(--safe-bottom)) calc(8px + var(--safe-left));
+  padding: 6px calc(8px + var(--safe-right)) max(calc(6px + var(--safe-bottom)), var(--badge-space)) calc(8px + var(--safe-left));
 }
 .tabbar-in { max-width: 720px; margin: 0 auto; display: flex; }
 .tab {
@@ -206,7 +209,7 @@ b, strong { font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
 /* ===== Lernansicht ===== */
-.screen.has-dock { padding-bottom: calc(120px + var(--safe-bottom)); }
+.screen.has-dock { padding-bottom: calc(120px + var(--bottom-space)); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .progress-line { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin-top: -4px; }
 .progress-line span { display: block; height: 100%; background: var(--accent); transition: width 0.2s; }
@@ -245,7 +248,7 @@ b, strong { font-weight: 700; }
   background: color-mix(in srgb, var(--bg) 92%, transparent);
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   border-top: 1px solid var(--line);
-  padding: 12px calc(16px + var(--safe-right)) calc(12px + var(--safe-bottom)) calc(16px + var(--safe-left));
+  padding: 12px calc(16px + var(--safe-right)) max(calc(12px + var(--safe-bottom)), var(--badge-space)) calc(16px + var(--safe-left));
 }
 .dock-in { max-width: 688px; margin: 0 auto; display: flex; gap: 10px; }
 .dock-hint { max-width: 688px; margin: 6px auto 0; text-align: center; font-size: 13px; color: var(--muted); }
@@ -267,7 +270,7 @@ b, strong { font-weight: 700; }
 .done-stats { display: flex; gap: 40px; }
 .big-num.ok { color: var(--good); }
 .big-num.bad { color: var(--again); }
-.answer-anchor { scroll-margin-bottom: calc(110px + var(--safe-bottom)); }
+.answer-anchor { scroll-margin-bottom: calc(110px + var(--bottom-space)); }
 
 /* ===== Quiz ===== */
 .opt-btn {

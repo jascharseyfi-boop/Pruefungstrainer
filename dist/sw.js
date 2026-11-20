@@ -1,13 +1,13 @@
 /* Elearning Service Worker – wird beim Build aus src/sw-template.js erzeugt. Nicht von Hand bearbeiten. */
-const VERSION = '4d3ec95504fe';
+const VERSION = '75ff1cc0fa89';
 const PRECACHE = [
   "./",
   "./assets/barlow-condensed-latin-600-normal-BFJEwTuo.woff",
   "./assets/barlow-condensed-latin-600-normal-DepVgxBB.woff2",
   "./assets/barlow-condensed-latin-700-normal-Dmwat-ge.woff",
   "./assets/barlow-condensed-latin-700-normal-v1xN8_Wq.woff2",
-  "./assets/index-DVcRNy68.js",
-  "./assets/index-kVLghooC.css",
+  "./assets/index-DaESTnE3.js",
+  "./assets/index-Dz1rfQ4A.css",
   "./assets/source-sans-3-latin-400-normal-DQi5PRDE.woff2",
   "./assets/source-sans-3-latin-400-normal-RR2C27NP.woff",
   "./assets/source-sans-3-latin-600-normal-Ck0n4g8U.woff",
