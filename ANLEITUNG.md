@@ -8,25 +8,58 @@ Die fertige App ist der Ordner **`dist/`**. Mehr braucht es für die Veröffentl
 
 ---
 
-## 1. App online stellen (Netlify Drop)
+## 1. App online stellen
 
-1. Am Computer **https://app.netlify.com/drop** öffnen.
-2. Kostenlos anmelden oder registrieren (z. B. mit E-Mail oder GitHub).
-   Ohne Anmeldung ist die Seite nur vorübergehend online.
-3. Den Ordner **`dist`** (den ganzen Ordner, nicht seinen Inhalt) in das Feld
-   „Drag and drop your site output folder here“ ziehen.
-4. Nach wenigen Sekunden erscheint ein Link wie `https://zufalls-name-123.netlify.app`.
-5. Empfohlen: einen sprechenden Namen vergeben:
-   **Site configuration → Change site name** → z. B. `elearning-gkv` →
-   Link: `https://elearning-gkv.netlify.app`.
+**Aktuelle Adresse:** https://pruefungstrainer-3xii.netlify.app
 
-> Den Link einmal am Computer öffnen und prüfen, ob die Startseite mit den Lernmodi erscheint.
+### Weg A (empfohlen): Netlify mit GitHub verbinden – geht auch komplett am iPad
+
+Netlify holt sich den Ordner `dist/` selbst aus dem GitHub-Repository. Jede neue Version,
+die im Repository landet, geht **automatisch** online.
+
+1. **https://app.netlify.com** öffnen, kostenlos registrieren („Sign up with GitHub“).
+2. Auf der Startseite die Kachel **„Import from Git“** antippen
+   (nicht das große Eingabefeld „Describe your idea…“ – das ist Netlifys KI-Assistent).
+3. **GitHub** wählen, Netlify den Zugriff erlauben und das Repository **Pruefungstrainer** freigeben.
+4. Einstellungen:
+   - **Branch to deploy:** der Branch mit der fertigen App (aktuell
+     `claude/app-planning-development-si3ys3`, nach dem Zusammenführen `main`)
+   - **Build command:** leer lassen (oder `npm run build` – beides funktioniert)
+   - **Publish directory:** `dist`
+5. **Deploy** antippen. Nach etwa einer Minute steht oben ein Link wie `https://….netlify.app`.
+6. **Öffentlich schalten** (siehe unten) und **„Powered by Netlify“ abschalten** (siehe unten).
+
+### Weg B: Netlify Drop (am Computer)
+
+1. Am Computer **https://app.netlify.com/drop** öffnen und anmelden
+   (ohne Anmeldung ist die Seite nur vorübergehend online).
+2. Den Ordner **`dist`** (den ganzen Ordner) in das Feld „Drop files to deploy“ ziehen.
+   Alternativ nimmt Netlify auch eine **.zip** des Ordners an.
+3. Danach öffentlich schalten und das Netlify-Feld abschalten (siehe unten).
+
+### Wichtig nach dem ersten Deploy
+
+**Öffentlich schalten:** Neue Netlify-Projekte sind zunächst **privat** – Besucher sehen
+„This site is private“. Freischalten über **Share** bzw.
+**Manage → Project configuration → General → Visitor access → Project visibility → Public**.
+Prüfen: Link in einem **privaten Safari-Tab** öffnen – es muss die Elearning-Startseite erscheinen.
+
+**„Powered by Netlify“ abschalten:** Netlify blendet bei neuen kostenlosen Projekten unten rechts
+ein Feld „Powered by Netlify“ ein. Es liegt über der Leiste *Statistik / Sichern*. Abschalten über
+**Manage → Project configuration → General → Powered by Netlify badge → aus**.
+
+**Sprechender Name (optional):** **Manage → Project configuration → General → Change project name**,
+z. B. `elearning-gkv` → `https://elearning-gkv.netlify.app`. Achtung: Danach ändert sich der Link –
+bereits installierte Apps müssen mit dem neuen Link neu installiert werden (Lernstand vorher exportieren).
+
+> Die Menünamen bei Netlify ändern sich gelegentlich. Wenn ein Punkt nicht genau so heißt,
+> nach „Visitor access“, „Badge“ bzw. „Project configuration“ suchen (Suchfeld oben in Netlify).
 
 ---
 
 ## 2. Link aufs iPhone bringen
 
-Den Link per Nachricht, Mail oder AirDrop aufs iPhone schicken – oder im Seminar als QR-Code
+Den Link (aktuell **https://pruefungstrainer-3xii.netlify.app**) per Nachricht, Mail oder AirDrop aufs iPhone schicken – oder im Seminar als QR-Code
 zeigen (z. B. in der Kamera-App scannen lassen).
 
 ---
@@ -48,17 +81,17 @@ installiert ist. Am Android-Handy: im Chrome-Menü **„App installieren“** bz
 
 ## 4. Updates einspielen
 
-Wenn es eine neue Version gibt (z. B. korrigierte Fragen):
+**Bei Weg A (GitHub):** nichts zu tun. Sobald eine neue Version im Repository auf dem eingestellten
+Branch landet, baut Netlify sie automatisch und stellt sie unter demselben Link online
+(Netlify → Projekt → *Versions*/*Deploys* zeigt den Stand).
 
-1. Neuen Ordner **`dist/`** besorgen (aus dem Repository oder nach `npm run build`, siehe unten).
-2. Bei Netlify anmelden → die Seite auswählen → Reiter **Deploys**.
-3. Den neuen Ordner **`dist`** in das Feld
-   „Need to update your site? Drag and drop your site output folder here“ ziehen.
-   Der Link bleibt gleich.
-4. Auf dem iPhone die App öffnen (mit Internet). Oben erscheint
-   **„Neue Version verfügbar – Aktualisieren“** → antippen. Fertig.
-   Falls der Hinweis nicht kommt: App ganz schließen (vom unteren Rand hochwischen und
-   wegschieben) und neu öffnen.
+**Bei Weg B (Drop):** Bei Netlify das Projekt öffnen → **Deploys** → den neuen Ordner **`dist`**
+in das Upload-Feld ziehen. Der Link bleibt gleich.
+
+**Auf iPhone/iPad:** die App öffnen (mit Internet). Oben erscheint
+**„Neue Version verfügbar – Aktualisieren“** → antippen. Fertig.
+Falls der Hinweis nicht kommt: App ganz schließen (vom unteren Rand hochwischen und
+wegschieben) und neu öffnen.
 
 **Der Lernstand bleibt bei Updates erhalten.**
 Welche Version läuft, steht ganz unten im Bereich **Sichern** („App-Stand: TT.MM.JJJJ“).
@@ -93,7 +126,7 @@ Erst mit **„Übernehmen“** wird der Lernstand auf dem neuen Gerät **ersetzt
 
 ## 6. Kurzanleitung für Seminarteilnehmende
 
-> 1. Link in **Safari** öffnen: `https://…netlify.app`
+> 1. Link in **Safari** öffnen: `https://pruefungstrainer-3xii.netlify.app`
 > 2. **Teilen → „Zum Home-Bildschirm“ → „Hinzufügen“**
 > 3. App einmal mit Internet öffnen – danach läuft sie offline.
 > 4. Lernen: **Karteikarten**, **Quiz**, **Prüfungssimulation** (30 Fragen, 60 Minuten,

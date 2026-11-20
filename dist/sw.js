@@ -1,5 +1,5 @@
 /* Elearning Service Worker – wird beim Build aus src/sw-template.js erzeugt. Nicht von Hand bearbeiten. */
-const VERSION = '45f80e03c28e';
+const VERSION = '4d3ec95504fe';
 const PRECACHE = [
   "./",
   "./assets/barlow-condensed-latin-600-normal-BFJEwTuo.woff",
@@ -50,6 +50,8 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  // Von Netlify eingefügte Skripte (/.netlify/…) nicht abfangen
+  if (url.pathname.startsWith('/.netlify/')) return;
 
   // Seitenaufrufe (auch mit #/route) → App-Hülle aus dem Cache
   if (req.mode === 'navigate') {

@@ -29,6 +29,8 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  // Von Netlify eingefügte Skripte (/.netlify/…) nicht abfangen
+  if (url.pathname.startsWith('/.netlify/')) return;
 
   // Seitenaufrufe (auch mit #/route) → App-Hülle aus dem Cache
   if (req.mode === 'navigate') {
