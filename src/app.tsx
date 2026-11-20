@@ -1,5 +1,6 @@
 import { TabBar } from './components/TabBar';
 import { useRoute } from './router';
+import { Flashcards } from './screens/Flashcards';
 import { Home } from './screens/Home';
 import { Placeholder } from './screens/Placeholder';
 
@@ -17,7 +18,7 @@ export function App() {
   const showTabs = route === 'start' || route === 'statistik' || route === 'sichern';
   return (
     <div class={`shell${showTabs ? ' has-tabs' : ''}`}>
-      {route === 'start' ? <Home /> : <Placeholder title={TITLES[route]} />}
+      {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : <Placeholder title={TITLES[route]} />}
       {showTabs && <TabBar active={route} />}
     </div>
   );
