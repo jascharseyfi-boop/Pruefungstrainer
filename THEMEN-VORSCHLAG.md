@@ -1,6 +1,6 @@
-# Themen-Umsortierung – Vorschlag zur Freigabe
+# Themen-Umsortierung – angewendet
 
-Noch **nicht** angewendet. Bitte Änderungswünsche einfach nennen (z. B. „S106 bleibt“).
+Von Jaschar freigegeben und mit `npm run apply-remap -- --write` angewendet. M056 bleibt bei Fahrzeug, Ladung & Verkehr.
 
 **Umbenennung:** „Finanzierung“ → **„Finanzierung & Kalkulation“** (dort landen auch die Kalkulationsfragen).
 
