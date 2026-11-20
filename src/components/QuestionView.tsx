@@ -13,8 +13,8 @@ export const LETTERS = 'ABCDEFGH';
 export function QuestionMeta({ q, extra }: { q: Question; extra?: preact.ComponentChildren }) {
   return (
     <div class="qmeta">
-      <span class="qkind">{TYPE_LABEL[q.type]}</span>
       <span class="qtopic">{q.topic}</span>
+      <span class="qkind">{TYPE_LABEL[q.type]}</span>
       {extra}
     </div>
   );

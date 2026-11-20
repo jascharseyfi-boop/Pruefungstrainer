@@ -180,12 +180,35 @@ async function fresh(browser, state, opts = {}) {
     await ctx.setOffline(true);
     const p2 = await ctx.newPage();
     await p2.goto(URL);
-    assert((await p2.locator('.brand').innerText()) === 'ELEARNING', 'Startseite offline nicht geladen');
-    for (const [route, sel] of [['karten', '.qtext'], ['quiz', '.qtext'], ['simulation', '.setup'], ['training', '.training-head'], ['statistik', '.tiles'], ['sichern', '.xfer']]) {
+    assert((await p2.locator('.brand').innerText()).toLowerCase() === 'elearning', 'Startseite offline nicht geladen');
+    for (const [route, sel] of [['lernen', '.qtext'], ['karten', '.qtext'], ['quiz', '.qtext'], ['simulation', '.setup'], ['training', '.training-head'], ['themen', '.tlist'], ['statistik', '.tiles'], ['sichern', '.xfer']]) {
       await p2.goto(URL + '#/' + route);
       await p2.locator(sel).first().waitFor({ timeout: 5000 });
     }
-    assert(await p2.evaluate(() => document.fonts.check('700 20px "Barlow Condensed"')), 'Schrift offline nicht geladen');
+    assert(await p2.evaluate(() => document.fonts.check('800 20px "Barlow"')), 'Schrift offline nicht geladen');
+    assert(errors.length === 0, 'JS-Fehler');
+    await ctx.close();
+  });
+
+  await test('Weiterlernen: fällige Wiederholungen zuerst, Themenauswahl im Tab „Themen“', async () => {
+    const day = (d) => { const x = new Date(); x.setDate(x.getDate() + d); return `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, '0')}-${String(x.getDate()).padStart(2, '0')}`; };
+    const st = baseState();
+    st.cards = { M036: { right: 0, wrong: 1, last: 'wrong', at: 1, level: 1, due: day(0) } }; // Gefahrgut, heute fällig
+    const { ctx, page, errors } = await fresh(browser, st);
+    await page.goto(URL + '#/themen');
+    await page.reload();
+    await page.getByRole('checkbox', { name: /Arbeitsrecht/ }).click();
+    assert((await page.locator('.topic-tools').innerText()).includes('11 von 12'), 'Abwahl im Themen-Tab wirkt nicht');
+    await page.getByRole('button', { name: 'Lernen', exact: true }).click();
+    const foot = await page.locator('.hero-foot').innerText();
+    assert(foot.includes('11 von 12 Themen'), 'Startseite zeigt Auswahl nicht: ' + foot);
+    assert((await page.locator('.go').innerText()).includes('1 Wiederholung + 10 neue Fragen'), 'Plan falsch');
+    await page.locator('.go').click();
+    await page.locator('.qtext').waitFor();
+    assert(norm(await page.locator('.qtext').innerText()) === strip(QS.find((q) => q.id === 'M036').question), 'fällige Frage nicht zuerst');
+    assert((await page.locator('.qcount').innerText()).startsWith('1 / 11'), 'Rundengröße falsch');
+    const saved = await page.evaluate((k) => JSON.parse(localStorage.getItem(k)).settings.topics, KEY);
+    assert(saved.length === 11 && !saved.includes('Arbeitsrecht'), 'Auswahl nicht gespeichert');
     assert(errors.length === 0, 'JS-Fehler');
     await ctx.close();
   });
@@ -210,7 +233,7 @@ async function fresh(browser, state, opts = {}) {
     });
     const space = () => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--badge-space').trim());
     const { ctx, page, errors } = await fresh(browser, baseState());
-    for (const [route, ready] of [['', '.tabbar'], ['statistik', '.tabbar'], ['karten', '.dock'], ['quiz', '.qtext'], ['simulation', '.dock']]) {
+    for (const [route, ready] of [['', '.tabbar'], ['themen', '.tabbar'], ['statistik', '.tabbar'], ['lernen', '.qtext'], ['karten', '.dock'], ['quiz', '.qtext'], ['simulation', '.dock']]) {
       await page.goto(URL + '#/' + route);
       await page.reload();
       await page.locator(ready).waitFor();

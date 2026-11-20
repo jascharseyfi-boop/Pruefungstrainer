@@ -56,7 +56,7 @@ export function Flashcards() {
     return (
       <div class="screen">
         <Header title="Karteikarten" back={() => go('start')} />
-        <div class="card"><p>Keine Fragen in der aktuellen Auswahl. Bitte auf der Startseite Themen wählen.</p></div>
+        <div class="card"><p>Keine Fragen in der aktuellen Auswahl. Bitte unter „Themen“ eine Auswahl treffen.</p></div>
       </div>
     );
   }

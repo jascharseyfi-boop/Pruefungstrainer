@@ -129,9 +129,11 @@ Erst mit **„Übernehmen“** wird der Lernstand auf dem neuen Gerät **ersetzt
 > 1. Link in **Safari** öffnen: `https://pruefungstrainer-3xii.netlify.app`
 > 2. **Teilen → „Zum Home-Bildschirm“ → „Hinzufügen“**
 > 3. App einmal mit Internet öffnen – danach läuft sie offline.
-> 4. Lernen: **Karteikarten**, **Quiz**, **Prüfungssimulation** (30 Fragen, 60 Minuten,
->    bestanden ab 50 %), **Fehler-Training** (falsche Fragen kommen nach 1, 3, 7 und 14 Tagen wieder).
-> 5. Fortschritt unter **Statistik**, Sicherung unter **Sichern**.
+> 4. Lernen: **„Weiterlernen“** auf der Startseite bringt zuerst die fälligen Wiederholungen
+>    (falsche Fragen kommen nach 1, 3, 7 und 14 Tagen wieder) und dann 10 neue Fragen.
+>    Außerdem: **Karteikarten**, **Quiz** und **Prüfungssimulation** (30 Fragen, 60 Minuten, bestanden ab 50 %).
+> 5. Unter **Themen** auswählen, was gelernt wird, und den Fortschritt pro Thema sehen.
+>    **Statistik** zeigt Serie und Simulationsergebnisse, **Sichern** überträgt den Lernstand.
 > Kein Konto, keine Daten an Dritte – alles bleibt auf dem eigenen Handy.
 
 **Tastatur am Computer:** Leertaste = Antwort zeigen · 1 = Konnte ich / Gewusst ·

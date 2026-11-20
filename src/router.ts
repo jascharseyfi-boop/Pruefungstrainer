@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 
-export type Route = 'start' | 'karten' | 'quiz' | 'simulation' | 'training' | 'statistik' | 'sichern';
-const ROUTES: Route[] = ['start', 'karten', 'quiz', 'simulation', 'training', 'statistik', 'sichern'];
+export type Route = 'start' | 'lernen' | 'karten' | 'quiz' | 'simulation' | 'training' | 'themen' | 'statistik' | 'sichern';
+const ROUTES: Route[] = ['start', 'lernen', 'karten', 'quiz', 'simulation', 'training', 'themen', 'statistik', 'sichern'];
 
 function parse(): Route {
   const r = location.hash.replace(/^#\/?/, '') as Route;

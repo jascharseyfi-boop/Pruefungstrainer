@@ -95,7 +95,7 @@ function Setup({ onStart }: { onStart: (sim: RunningSim) => void }) {
         <p class="setup-pool">
           <b>{topicLabel}</b> <span class="muted">· {pool.length} Fragen im Pool</span>
           <br />
-          <button type="button" class="link-inline" onClick={() => go('start')}>Themen auf der Startseite ändern</button>
+          <button type="button" class="link-inline" onClick={() => go('themen')}>Themen ändern</button>
         </p>
         {(simCount !== 30 || simMinutes !== 60 || simPassMark !== 50) && (
           <button type="button" class="link-inline" onClick={() => set({ simCount: 30, simMinutes: 60, simPassMark: 50 })}>

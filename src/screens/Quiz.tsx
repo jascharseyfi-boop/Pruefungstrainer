@@ -131,7 +131,7 @@ export function QuizSession({ title, buildIds, recordRight: recordRightInitial =
     return (
       <div class="screen">
         <Header title={title} back={onBack} />
-        <div class="card"><p>{emptyText ?? 'Keine Fragen in der aktuellen Auswahl. Bitte auf der Startseite Themen wählen.'}</p></div>
+        <div class="card"><p>{emptyText ?? 'Keine Fragen in der aktuellen Auswahl. Bitte unter „Themen“ eine Auswahl treffen.'}</p></div>
       </div>
     );
   }

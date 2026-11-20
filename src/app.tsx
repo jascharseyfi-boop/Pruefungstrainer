@@ -1,31 +1,38 @@
+import type { JSX } from 'preact';
 import { TabBar } from './components/TabBar';
 import { UpdateBanner } from './components/UpdateBanner';
-import { useRoute } from './router';
+import { useRoute, type Route } from './router';
 import { Flashcards } from './screens/Flashcards';
 import { Home } from './screens/Home';
+import { Learn } from './screens/Learn';
 import { Quiz } from './screens/Quiz';
 import { Simulation } from './screens/Simulation';
 import { Stats } from './screens/Stats';
+import { Topics } from './screens/Topics';
 import { Training } from './screens/Training';
 import { Transfer } from './screens/Transfer';
-import { Placeholder } from './screens/Placeholder';
 
-const TITLES = {
-  karten: 'Karteikarten',
-  quiz: 'Quiz',
-  simulation: 'Prüfungssimulation',
-  training: 'Fehler-Training',
-  statistik: 'Statistik',
-  sichern: 'Lernstand sichern',
-} as const;
+const SCREENS: Record<Route, () => JSX.Element> = {
+  start: Home,
+  lernen: Learn,
+  karten: Flashcards,
+  quiz: Quiz,
+  simulation: Simulation,
+  training: Training,
+  themen: Topics,
+  statistik: Stats,
+  sichern: Transfer,
+};
+const WITH_TABS: Route[] = ['start', 'themen', 'statistik', 'sichern'];
 
 export function App() {
   const route = useRoute();
-  const showTabs = route === 'start' || route === 'statistik' || route === 'sichern';
+  const Screen = SCREENS[route];
+  const showTabs = WITH_TABS.includes(route);
   return (
     <div class={`shell${showTabs ? ' has-tabs' : ''}`}>
       <main>
-        {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : route === 'quiz' ? <Quiz /> : route === 'simulation' ? <Simulation /> : route === 'training' ? <Training /> : route === 'statistik' ? <Stats /> : route === 'sichern' ? <Transfer /> : <Placeholder title={TITLES[route]} />}
+        <Screen key={route} />
       </main>
       <UpdateBanner />
       {showTabs && <TabBar active={route} />}
