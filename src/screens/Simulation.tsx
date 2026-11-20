@@ -173,6 +173,7 @@ function Running({ initial, onFinish }: { initial: RunningSim; onFinish: (s: Run
 
   return (
     <div class="screen has-dock">
+      <h1 class="sr-only">Prüfungssimulation</h1>
       <div class="simbar">
         <div class="simbar-in">
           <button type="button" class="simbar-count" aria-expanded={overview} onClick={() => setOverview(!overview)}>

@@ -50,7 +50,7 @@ export function SimChart({ sims }: { sims: SimResult[] }) {
       <details class="table-toggle">
         <summary>Als Tabelle</summary>
         <table class="data-table">
-          <thead><tr><th>#</th><th>Datum</th><th>Ergebnis</th><th>%</th><th></th></tr></thead>
+          <thead><tr><th>#</th><th>Datum</th><th>Ergebnis</th><th>%</th><th><span class="sr-only">bestanden</span></th></tr></thead>
           <tbody>
             {sims.map((r, i) => ({ r, i })).reverse().map(({ r, i }) => (
               <tr key={r.at}>

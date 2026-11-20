@@ -24,7 +24,9 @@ export function App() {
   const showTabs = route === 'start' || route === 'statistik' || route === 'sichern';
   return (
     <div class={`shell${showTabs ? ' has-tabs' : ''}`}>
-      {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : route === 'quiz' ? <Quiz /> : route === 'simulation' ? <Simulation /> : route === 'training' ? <Training /> : route === 'statistik' ? <Stats /> : route === 'sichern' ? <Transfer /> : <Placeholder title={TITLES[route]} />}
+      <main>
+        {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : route === 'quiz' ? <Quiz /> : route === 'simulation' ? <Simulation /> : route === 'training' ? <Training /> : route === 'statistik' ? <Stats /> : route === 'sichern' ? <Transfer /> : <Placeholder title={TITLES[route]} />}
+      </main>
       <UpdateBanner />
       {showTabs && <TabBar active={route} />}
     </div>

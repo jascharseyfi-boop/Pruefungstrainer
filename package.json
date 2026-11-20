@@ -9,7 +9,8 @@
     "test": "vitest run",
     "validate": "node scripts/validate-questions.mjs",
     "typecheck": "tsc --noEmit",
-    "apply-remap": "node scripts/apply-topic-remap.mjs"
+    "apply-remap": "node scripts/apply-topic-remap.mjs",
+    "e2e": "vite build && node tests/e2e/run.cjs"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.6",
+    "axe-core": "^4.14.1",
     "typescript": "^7.0.2",
     "vite": "^6.4.6",
     "vitest": "^5.1.1"

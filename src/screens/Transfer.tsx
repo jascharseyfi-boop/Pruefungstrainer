@@ -149,7 +149,7 @@ export function Transfer() {
         <div class="btnrow">
           <button type="button" class="btn btn-primary btn-sm" disabled={!input.trim()} onClick={() => check(input)}>Code prüfen</button>
           <button type="button" class="btn btn-ghost btn-sm" onClick={() => fileRef.current?.click()}>Datei wählen</button>
-          <input ref={fileRef} type="file" accept=".json,.txt,application/json,text/plain" class="sr-only" tabIndex={-1} onChange={onFile} />
+          <input ref={fileRef} type="file" aria-label="Lernstand-Datei wählen" accept=".json,.txt,application/json,text/plain" class="sr-only" tabIndex={-1} onChange={onFile} />
         </div>
         {error && <p class="err-msg" role="alert">{error}</p>}
         {done && <p class="ok-msg" role="status">{done}</p>}

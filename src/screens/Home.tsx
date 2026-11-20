@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Header } from '../components/Header';
+import { InstallHint } from '../components/InstallHint';
 import { ProgressBar } from '../components/ProgressBar';
 import { QUESTIONS, TOPICS, countByTopic } from '../data/questions';
 import { filterByTopics } from '../lib/select';
@@ -37,6 +38,7 @@ export function Home() {
   return (
     <div class="screen">
       <Header title="Elearning" sub="Fachkunde Güterkraftverkehr" />
+      <InstallHint />
 
       <section class="summary card" aria-label="Überblick">
         <div class="summary-row">
