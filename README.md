@@ -10,7 +10,7 @@ Bedienung & Veröffentlichung: **`ANLEITUNG.md`**.
 | Pfad | Inhalt |
 |---|---|
 | `data/questions.json` | 310 Fragen (12 Themen) |
-| `src/screens/` | Startseite, Karteikarten, Quiz, Prüfungssimulation, Fehler-Training, Statistik, Sichern |
+| `src/screens/` | Startseite (Weiterlernen), Karteikarten, Quiz, Prüfungssimulation, Fehler-Training, Themen, Statistik, Sichern |
 | `src/store/` | Lernstand: Modell (Spaced Repetition 1/3/7/14 Tage), Speicher-Schnittstelle (localStorage, sync-fähig) |
 | `src/lib/` | MC-Auswertung, Simulation, Export/Import, sicheres HTML-Rendern, Statistik |
 | `src/sw-template.js` | Service Worker (Precache-Liste wird beim Build eingesetzt, siehe `vite.config.ts`) |

@@ -1,7 +1,7 @@
 import { Header } from '../components/Header';
 import { SimChart } from '../components/SimChart';
 import { QUESTIONS, TOPICS } from '../data/questions';
-import { dueQuestions, longestStreak, masteryCounts, topicStats, weakestTopics, type TopicStat } from '../lib/stats';
+import { dueQuestions, longestStreak, masteryCounts, topicStats, weakestTopics } from '../lib/stats';
 import { go } from '../router';
 import { addDays, dayKey, streak } from '../store/model';
 import { store, useLearnState } from '../store/store';
@@ -21,28 +21,11 @@ function practice(topic: string) {
   go('quiz');
 }
 
-function TopicRow({ t, weak }: { t: TopicStat; weak: boolean }) {
-  return (
-    <li class={`trow${weak ? ' is-weak' : ''}`}>
-      <div class="trow-head">
-        <span class="trow-name">{t.topic}{weak && <span class="tag-weak">schwach</span>}</span>
-        <span class="trow-pct">{Math.round(t.share * 100)} %</span>
-      </div>
-      <StackBar s={t} total={t.total} label={t.topic} />
-      <div class="trow-foot">
-        <span class="muted">{t.sicher} sicher · {t.wackelig} wackelig · {t.offen} offen</span>
-        <button type="button" class="link-inline" onClick={() => practice(t.topic)} aria-label={`${t.topic} im Quiz üben`}>Üben ›</button>
-      </div>
-    </li>
-  );
-}
-
 export function Stats() {
   const state = useLearnState();
   const all = masteryCounts(QUESTIONS, state);
   const stats = topicStats(QUESTIONS, TOPICS, state);
   const weak = weakestTopics(stats, 3);
-  const weakSet = new Set(weak.map((w) => w.topic));
   const today = dayKey();
   const days = new Set(state.days);
   const last28 = Array.from({ length: 28 }, (_, i) => addDays(today, i - 27));
@@ -91,11 +74,9 @@ export function Stats() {
         </section>
       )}
 
-      <section class="card" aria-labelledby="top-h">
-        <h2 id="top-h" class="h2">Themen</h2>
-        <ul class="tlist">
-          {stats.map((t) => <TopicRow key={t.topic} t={t} weak={weakSet.has(t.topic)} />)}
-        </ul>
+      <section class="card" aria-labelledby="more-h">
+        <h2 id="more-h" class="h2">Mehr</h2>
+        <p class="muted small">Fortschritt pro Thema findest du unter <button type="button" class="link-inline" onClick={() => go('themen')}>Themen</button>, die Wiederholungs-Stufen im <button type="button" class="link-inline" onClick={() => go('training')}>Fehler-Training</button>.</p>
       </section>
 
       <section class="card" aria-labelledby="sim-h">
