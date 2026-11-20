@@ -1,0 +1,11 @@
+# Netlify: Service Worker und Einstiegsseite nie lange cachen, damit Updates ankommen
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: no-cache
+  Content-Type: application/manifest+json; charset=utf-8
+# Dateien mit Hash im Namen dürfen dauerhaft gecacht werden
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
