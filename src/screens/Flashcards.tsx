@@ -16,6 +16,8 @@ export function Flashcards() {
   const [session, setSession] = useState<FcSession>(() => startSession(initial));
   const [revealed, setRevealed] = useState(false);
   const [finished, setFinished] = useState(false);
+  // in Wiederholungsrunden zählen richtige Antworten nicht (sonst Stufenaufstieg am selben Tag)
+  const [recordRight, setRecordRight] = useState(true);
 
   const id = current(session);
   const q = id ? QUESTION_BY_ID.get(id) : undefined;
@@ -31,13 +33,14 @@ export function Flashcards() {
   const answer = (ok: boolean) => {
     if (done || !revealed || !id) return;
     const r = rate(session, ok);
-    if (r.record) store.update((s) => recordAnswer(s, id, ok));
+    if (r.record && (!ok || recordRight)) store.update((s) => recordAnswer(s, id, ok));
     setSession(r.session);
     setRevealed(false);
     window.scrollTo(0, 0);
   };
-  const restart = (ids: string[]) => {
+  const restart = (ids: string[], record: boolean) => {
     setSession(startSession(ids));
+    setRecordRight(record);
     setRevealed(false);
     setFinished(false);
   };
@@ -74,11 +77,11 @@ export function Flashcards() {
         </section>
         <Dock>
           {missed.length > 0 && (
-            <button type="button" class="btn btn-primary" onClick={() => restart(missed)}>
+            <button type="button" class="btn btn-primary" onClick={() => restart(missed, false)}>
               {missed.length} wiederholen
             </button>
           )}
-          <button type="button" class={`btn ${missed.length ? 'btn-ghost' : 'btn-primary'}`} onClick={() => restart(buildDeck(QUESTIONS, store.get().settings).map((x) => x.id))}>
+          <button type="button" class={`btn ${missed.length ? 'btn-ghost' : 'btn-primary'}`} onClick={() => restart(buildDeck(QUESTIONS, store.get().settings).map((x) => x.id), true)}>
             Neue Runde
           </button>
         </Dock>

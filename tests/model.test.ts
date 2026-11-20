@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  addDays, applyAnswer, dayKey, emptyState, isDue, mastery, normalizeState, recordAnswer, streak,
+  addDays, applyAnswer, dayKey, emptyState, isDue, mastery, normalizeState, recordAnswer, relativeDay, streak,
 } from '../src/store/model';
 import { Store } from '../src/store/store';
 import { memoryBackend } from '../src/store/storage';
@@ -93,5 +93,14 @@ describe('Store', () => {
     st.update((s) => recordAnswer(s, 'S001', true));
     expect(calls).toBe(1);
     expect(new Store(backend).get().cards.S001.right).toBe(1);
+  });
+});
+
+describe('relativeDay', () => {
+  it('formatiert', () => {
+    expect(relativeDay('2026-11-20', '2026-11-20')).toBe('heute');
+    expect(relativeDay('2026-11-21', '2026-11-20')).toBe('morgen');
+    expect(relativeDay('2026-11-23', '2026-11-20')).toBe('in 3 Tagen');
+    expect(relativeDay('2026-12-04', '2026-11-20')).toBe('am 04.12.');
   });
 });

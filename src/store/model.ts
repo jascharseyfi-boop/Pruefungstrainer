@@ -221,3 +221,14 @@ function clampInt(x: unknown, min: number, max: number, def: number): number {
   const n = Math.round(Number(x));
   return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : def;
 }
+
+/** „heute“, „morgen“, „in 3 Tagen“ oder Datum. */
+export function relativeDay(key: string, today: string = dayKey()): string {
+  const [y1, m1, d1] = today.split('-').map(Number);
+  const [y2, m2, d2] = key.split('-').map(Number);
+  const diff = Math.round((Date.UTC(y2, m2 - 1, d2) - Date.UTC(y1, m1 - 1, d1)) / 86_400_000);
+  if (diff <= 0) return 'heute';
+  if (diff === 1) return 'morgen';
+  if (diff < 7) return `in ${diff} Tagen`;
+  return `am ${String(d2).padStart(2, '0')}.${String(m2).padStart(2, '0')}.`;
+}

@@ -13,9 +13,28 @@ import { store } from '../store/store';
 
 interface Result { id: string; ok: boolean }
 
+export interface QuizSessionProps {
+  title: string;
+  /** liefert die Fragen-IDs für eine neue Runde */
+  buildIds: () => string[];
+  /** false: richtige Antworten ändern den Lernstand nicht (nur falsche setzen zurück) */
+  recordRight?: boolean;
+  emptyText?: string;
+  onBack?: () => void;
+}
+
 export function Quiz() {
-  const initial = useMemo(() => buildDeck(QUESTIONS, store.get().settings).map((q) => q.id), []);
+  return <QuizSession title="Quiz" buildIds={() => buildDeck(QUESTIONS, store.get().settings).map((q) => q.id)} />;
+}
+
+/**
+ * Quiz-Sitzung: MC sofort auswerten, offene Fragen aufdecken und selbst bewerten.
+ * Wird von Quiz und Fehler-Training genutzt.
+ */
+export function QuizSession({ title, buildIds, recordRight: recordRightInitial = true, emptyText, onBack = () => go('start') }: QuizSessionProps) {
+  const initial = useMemo(buildIds, []);
   const [ids, setIds] = useState(initial);
+  const [recordRight, setRecordRight] = useState(recordRightInitial);
   const [pos, setPos] = useState(0);
   const [results, setResults] = useState<Result[]>([]);
   const [selected, setSelected] = useState<number[]>([]);
@@ -37,7 +56,8 @@ export function Quiz() {
 
   const commit = (ok: boolean) => {
     if (!q || answered) return;
-    store.update((s) => recordAnswer(s, q.id, ok));
+    // Wiederholungsrunden: richtige Antworten nicht verbuchen, sonst steigt die Stufe am selben Tag
+    if (!ok || recordRight) store.update((s) => recordAnswer(s, q.id, ok));
     setResults((r) => [...r, { id: q.id, ok }]);
     setLastOk(ok);
   };
@@ -72,8 +92,9 @@ export function Quiz() {
     window.scrollTo(0, 0);
   };
 
-  const restart = (list: string[]) => {
+  const restart = (list: string[], record: boolean) => {
     setIds(list);
+    setRecordRight(record);
     setPos(0);
     setResults([]);
     setSelected([]);
@@ -109,8 +130,8 @@ export function Quiz() {
   if (initial.length === 0) {
     return (
       <div class="screen">
-        <Header title="Quiz" back={() => go('start')} />
-        <div class="card"><p>Keine Fragen in der aktuellen Auswahl. Bitte auf der Startseite Themen wählen.</p></div>
+        <Header title={title} back={onBack} />
+        <div class="card"><p>{emptyText ?? 'Keine Fragen in der aktuellen Auswahl. Bitte auf der Startseite Themen wählen.'}</p></div>
       </div>
     );
   }
@@ -121,18 +142,19 @@ export function Quiz() {
     const pct = results.length ? Math.round((right / results.length) * 100) : 0;
     return (
       <div class="screen">
-        <Header title="Quiz" back={() => go('start')} />
+        <Header title={title} back={onBack} />
         <section class="card done">
-          <h2 class="h2">Quiz beendet</h2>
+          <h2 class="h2">Runde beendet</h2>
           <div class="big-num">{pct} %</div>
           <p class="muted">{right} von {results.length} richtig</p>
           {wrong.length > 0 && <p class="muted">Falsche Fragen sind im Fehler-Training und kommen morgen wieder.</p>}
+          {!recordRight && <p class="muted small">Wiederholungsrunde: Richtige Antworten verschieben den Termin im Fehler-Training nicht.</p>}
         </section>
         <Dock>
           {wrong.length > 0 && (
-            <button key="rep" type="button" class="btn btn-primary" onClick={() => restart(wrong)}>{wrong.length} Falsche üben</button>
+            <button key="rep" type="button" class="btn btn-primary" onClick={() => restart(wrong, false)}>{wrong.length} Falsche üben</button>
           )}
-          <button key="new" type="button" class={`btn ${wrong.length ? 'btn-ghost' : 'btn-primary'}`} onClick={() => restart(buildDeck(QUESTIONS, store.get().settings).map((x) => x.id))}>
+          <button key="new" type="button" class={`btn ${wrong.length ? 'btn-ghost' : 'btn-primary'}`} onClick={() => restart(buildIds(), recordRightInitial)}>
             Neue Runde
           </button>
         </Dock>
@@ -145,7 +167,7 @@ export function Quiz() {
 
   return (
     <div class="screen has-dock">
-      <Header title="Quiz" back={() => go('start')} />
+      <Header title={title} back={onBack} />
       <div class="progress-line" aria-hidden="true"><span style={{ width: `${(pos / ids.length) * 100}%` }} /></div>
       <article class="card qcard" key={`${q!.id}-${pos}`}>
         <QuestionMeta q={q!} extra={<span class="qcount">{pos + 1} / {ids.length} · {correctSoFar} ✓</span>} />
@@ -165,7 +187,7 @@ export function Quiz() {
           </div>
         )}
       </article>
-      <button type="button" class="link-btn" onClick={() => setFinished(true)}>Quiz beenden</button>
+      <button type="button" class="link-btn" onClick={() => setFinished(true)}>Runde beenden</button>
 
       {isMc && !answered && multi && (
         <Dock hint="Tastatur: 1–5 bzw. A–E wählen · Enter = Prüfen">
