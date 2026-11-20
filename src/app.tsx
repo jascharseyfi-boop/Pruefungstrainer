@@ -2,6 +2,7 @@ import { TabBar } from './components/TabBar';
 import { useRoute } from './router';
 import { Flashcards } from './screens/Flashcards';
 import { Home } from './screens/Home';
+import { Quiz } from './screens/Quiz';
 import { Placeholder } from './screens/Placeholder';
 
 const TITLES = {
@@ -18,7 +19,7 @@ export function App() {
   const showTabs = route === 'start' || route === 'statistik' || route === 'sichern';
   return (
     <div class={`shell${showTabs ? ' has-tabs' : ''}`}>
-      {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : <Placeholder title={TITLES[route]} />}
+      {route === 'start' ? <Home /> : route === 'karten' ? <Flashcards /> : route === 'quiz' ? <Quiz /> : <Placeholder title={TITLES[route]} />}
       {showTabs && <TabBar active={route} />}
     </div>
   );

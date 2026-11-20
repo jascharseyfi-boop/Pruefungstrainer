@@ -259,3 +259,35 @@ b, strong { font-weight: 700; }
 .big-num.ok { color: var(--good); }
 .big-num.bad { color: var(--again); }
 .answer-anchor { scroll-margin-bottom: calc(110px + var(--safe-bottom)); }
+
+/* ===== Quiz ===== */
+.opt-btn {
+  width: 100%; text-align: left; font: inherit; font-size: 18px; color: var(--fg); cursor: pointer;
+  min-height: 56px; align-items: center; position: relative;
+}
+.opt-btn:hover:not([aria-disabled='true']) { border-color: var(--muted); }
+.opt-btn[aria-disabled='true'] { cursor: default; }
+.opt-btn.is-sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); box-shadow: inset 0 0 0 1px var(--accent); }
+.opt-text { flex: 1; }
+.box {
+  display: inline-grid; place-items: center; width: 22px; height: 22px; border: 2px solid var(--muted);
+  border-radius: 5px; font: 700 15px/1 var(--body); color: var(--accent-ink);
+}
+.opt-btn.is-sel .box { background: var(--accent); border-color: var(--accent); }
+.opt.is-hit { border-color: var(--good); background: color-mix(in srgb, var(--good) 16%, var(--surface)); box-shadow: inset 0 0 0 1px var(--good); }
+.opt.is-missed { border: 2px dashed var(--good); }
+.opt.is-wrong { border-color: var(--again); background: color-mix(in srgb, var(--again) 14%, var(--surface)); box-shadow: inset 0 0 0 1px var(--again); }
+.mark { flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font: 700 16px/1 var(--body); }
+.mark-hit { background: var(--good); color: var(--on-good); }
+.mark-missed { background: var(--surface); color: var(--good); border: 2px solid var(--good); }
+.mark-wrong { background: var(--again); color: var(--on-again); }
+.hint-multi {
+  background: color-mix(in srgb, var(--accent) 16%, var(--surface)); border-left: 4px solid var(--accent);
+  border-radius: 10px; padding: 10px 14px; font-weight: 600; font-size: 16px;
+}
+.verdict { font: 700 24px/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.03em; }
+.verdict.is-ok { color: var(--good); }
+.verdict.is-bad { color: var(--again); }
+.opt.is-hit .box { background: var(--good); border-color: var(--good); color: var(--on-good); }
+.opt.is-wrong .box { background: var(--again); border-color: var(--again); color: var(--on-again); }
+.opt.is-missed .box { border-color: var(--good); }
